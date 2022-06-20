@@ -12,10 +12,11 @@ function PopupWithForm(props) {
         <form
           className={`popup__form ${props.name}__form`}
           name={props.name}
-          novalidate
-        >
-          {props.children}         
-          <button type="submit" className="popup__submit-button">{props.textOnButton}</button>
+          novalidate>
+            {props.children}         
+            <button type="submit" className="popup__submit-button">
+              {props.textOnButton}
+            </button>
         </form>
       </div>
     </div>

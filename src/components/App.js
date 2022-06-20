@@ -3,6 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 
 
@@ -73,20 +74,8 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm name="confirm-popup" title="Вы уверены?" textOnButton="Да" />
-      
-      <div className="popup image-popup">
-        <div className="image-popup__container">
-          <button
-            className="popup__close-button image-popup__close-button"
-            type="button"
-            aria-label="закрыть окно"
-          ></button>
-          <figure className="image-popup__image-container">
-            <img className="image-popup__image" src="." alt="." />
-            <figcaption className="image-popup__caption"></figcaption>
-          </figure>
-        </div>
-      </div>    
+
+      <ImagePopup />
 
       <template className="template">
         <div className="element">
@@ -97,8 +86,8 @@ function App() {
               <button
                 className="element__like-button"
                 type="button"
-                aria-label="поставить лайк"
-              ></button>
+                aria-label="поставить лайк">                
+              </button>
               <div className="element__likes-counter"></div>
             </div>
           </div>
