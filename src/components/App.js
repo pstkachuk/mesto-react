@@ -1,49 +1,19 @@
-import './index.css';
-import headerLogo from './images/header-logo.svg';
+import '../index.css';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+
 
 function App() {
   return (
     <div className="page">
-      <header className="header">
-        <img src={headerLogo} alt="Логотип Место" className="header__logo" />
-      </header>
+     <Header />
+     <Main />
+     <Footer />
+     
+      
 
-      <main>
-        <section className="profile">
-          <div className="profile__avatar-container">
-            <img
-              className="profile__avatar"
-              src="."
-              alt="Аватар"
-            />
-            <div className="profile__avatar-edit-button"></div>
-          </div>
-          <div className="profile__profile-info">
-            <div className="profile__title-container">
-              <h1 className="profile__title"></h1>
-              <button
-                className="profile__edit-button"
-                type="button"
-                aria-label="редактировать профиль">
-              </button>
-            </div>
-            <p className="profile__subtitle"></p>
-          </div>
-          <button
-            className="profile__add-button"
-            type="button"
-            aria-label="добавить карточку">
-          </button>
-        </section>
-
-        <section className="elements">
-
-        </section>
-      </main>
-
-      <footer className="footer">
-        <p className="footer__copyright">&#169; 2022. Павел Ткачук</p>
-      </footer>
+      
 
       <div className="popup profile-popup">
         <div className="popup__container">
