@@ -1,4 +1,17 @@
-function Main() {
+function Main() {  
+
+  function handleEditAvatarClick() {
+    document.querySelector('.avatar-popup').classList.add('popup_opened');
+  }
+
+  function handleEditProfileClick() {
+    document.querySelector('.profile-popup').classList.add('popup_opened');
+  }
+
+  function handleAddPlaceClick() {
+    document.querySelector('.new-card').classList.add('popup_opened');
+  }
+    
   return(
     <main>
       <section className="profile">
@@ -8,7 +21,7 @@ function Main() {
             src="."
             alt="Аватар"
           />
-          <div className="profile__avatar-edit-button"></div>
+          <div className="profile__avatar-edit-button" onClick={handleEditAvatarClick}></div>
         </div>
         <div className="profile__profile-info">
           <div className="profile__title-container">
@@ -16,7 +29,8 @@ function Main() {
             <button
               className="profile__edit-button"
               type="button"
-              aria-label="редактировать профиль">
+              aria-label="редактировать профиль"
+              onClick={handleEditProfileClick}>
             </button>
           </div>
           <p className="profile__subtitle"></p>
@@ -24,7 +38,8 @@ function Main() {
         <button
           className="profile__add-button"
           type="button"
-          aria-label="добавить карточку">
+          aria-label="добавить карточку"
+          onClick={handleAddPlaceClick}>
         </button>
       </section>
 
