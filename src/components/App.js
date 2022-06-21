@@ -7,7 +7,6 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 
-
 function App() {
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
