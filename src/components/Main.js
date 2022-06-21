@@ -1,16 +1,4 @@
-function Main() {  
-
-  function handleEditAvatarClick() {
-    document.querySelector('.avatar-popup').classList.add('popup_opened');
-  }
-
-  function handleEditProfileClick() {
-    document.querySelector('.profile-popup').classList.add('popup_opened');
-  }
-
-  function handleAddPlaceClick() {
-    document.querySelector('.new-card').classList.add('popup_opened');
-  }
+function Main(props) {    
     
   return(
     <main>
@@ -21,7 +9,7 @@ function Main() {
             src="."
             alt="Аватар"
           />
-          <div className="profile__avatar-edit-button" onClick={handleEditAvatarClick}></div>
+          <div className="profile__avatar-edit-button" onClick={props.onEditAvatar}></div>
         </div>
         <div className="profile__profile-info">
           <div className="profile__title-container">
@@ -30,7 +18,7 @@ function Main() {
               className="profile__edit-button"
               type="button"
               aria-label="редактировать профиль"
-              onClick={handleEditProfileClick}>
+              onClick={props.onEditProfile}>
             </button>
           </div>
           <p className="profile__subtitle"></p>
@@ -39,7 +27,7 @@ function Main() {
           className="profile__add-button"
           type="button"
           aria-label="добавить карточку"
-          onClick={handleAddPlaceClick}>
+          onClick={props.onAddPlace}>
         </button>
       </section>
 

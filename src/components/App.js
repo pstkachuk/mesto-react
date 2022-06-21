@@ -1,3 +1,4 @@
+import React from 'react';
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
@@ -8,20 +9,46 @@ import ImagePopup from './ImagePopup';
 
 
 function App() {
+
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsAddPlacePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+  }
+
   return (
     <div className="page">
       <Header />
-      <Main />
+      <Main 
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick} />
       <Footer />
-      <PopupWithForm name="profile-popup" title="Редактировать профиль" textOnButton="Сохранить">
+      <PopupWithForm name="profile-popup" title="Редактировать профиль" textOnButton="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <input
           className="popup__input"
           type="text"
           name="name"
           id="name"
           required
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
           placeholder="Имя"
         />
         <span className="popup__input-error name-error"></span>
@@ -31,14 +58,14 @@ function App() {
           name="about"
           id="about"
           required
-          minlength="2"
-          maxlength="200"
+          minLength="2"
+          maxLength="200"
           placeholder="Информация о пользователе"
         />
         <span className="popup__input-error about-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="new-card" title="Новое место" textOnButton="Создать">
+      <PopupWithForm name="new-card" title="Новое место" textOnButton="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <input
           className="popup__input"
           type="text"
@@ -46,8 +73,8 @@ function App() {
           id="card-name"
           required
           placeholder="Название"
-          minlength="2"
-          maxlength="30"
+          minLength="2"
+          maxLength="30"
         />
         <span className="popup__input-error card-name-error"></span>
         <input
@@ -61,7 +88,7 @@ function App() {
         <span className="popup__input-error link-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="avatar-popup" title="Обновить аватар" textOnButton="Сохранить">
+      <PopupWithForm name="avatar-popup" title="Обновить аватар" textOnButton="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
         <input
           className="popup__input"
           type="url"
