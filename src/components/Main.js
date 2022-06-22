@@ -1,14 +1,26 @@
 import React from 'react';
 import api from '../utils/Api';
+import Card from './Card';
 
 function Main(props) {
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
-
-  React.useEffect(() => { //запрос пользовательских данных
-    api.getUserInfo()
+  const [cards, setCards] = React.useState([]);
+  
+  React.useEffect(() => {     // запрос карточек
+    api.getCards()
     .then((data) => {
+      setCards(data);
+    })
+   .catch((err) => {
+      console.log(err);
+    })
+  }, [])
+
+  React.useEffect(() => {     //запрос пользовательских данных
+    api.getUserInfo()
+    .then((data) => { 
       setUserName(data.name);
       setUserDescription(data.about);
       setUserAvatar(data.avatar)
@@ -49,9 +61,12 @@ function Main(props) {
         </button>
       </section>
 
-      <section className="elements">
-        
+      <section className="elements">    {/* отрисовка полученных карточек */}
+       {cards.map((cardItem) => 
+        <Card key={cardItem._id} card={cardItem} />
+       )}
       </section>
+
     </main>
   )
 }

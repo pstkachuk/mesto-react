@@ -124,24 +124,6 @@ function App() {
       />
 
       <ImagePopup />
-
-      <template className="template">
-        <div className="element">
-          <img className="element__image" src="." alt="." />
-          <div className="element__caption-container">
-            <h2 className="element__caption"></h2>
-            <div className="element__likes-container">
-              <button
-                className="element__like-button"
-                type="button"
-                aria-label="поставить лайк">                
-              </button>
-              <div className="element__likes-counter"></div>
-            </div>
-          </div>
-          <div className="element__delete-button"></div>
-        </div>
-      </template>
     </div>
   );
 }
