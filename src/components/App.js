@@ -8,7 +8,6 @@ import ImagePopup from './ImagePopup';
 
 
 function App() {
-
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -37,9 +36,16 @@ function App() {
       <Main 
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick} />
+        onEditAvatar={handleEditAvatarClick} 
+      />
       <Footer />
-      <PopupWithForm name="profile-popup" title="Редактировать профиль" textOnButton="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm 
+        name="profile-popup" 
+        title="Редактировать профиль" 
+        textOnButton="Сохранить" 
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        >
         <input
           className="popup__input"
           type="text"
@@ -64,7 +70,13 @@ function App() {
         <span className="popup__input-error about-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="new-card" title="Новое место" textOnButton="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm 
+        name="new-card" 
+        title="Новое место" 
+        textOnButton="Создать" 
+        isOpen={isAddPlacePopupOpen} 
+        onClose={closeAllPopups}
+        >
         <input
           className="popup__input"
           type="text"
@@ -87,7 +99,13 @@ function App() {
         <span className="popup__input-error link-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="avatar-popup" title="Обновить аватар" textOnButton="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm 
+        name="avatar-popup" 
+        title="Обновить аватар" 
+        textOnButton="Сохранить" 
+        isOpen={isEditAvatarPopupOpen} 
+        onClose={closeAllPopups}
+        >
         <input
           className="popup__input"
           type="url"
@@ -99,7 +117,11 @@ function App() {
         <span className="popup__input-error avatar-link-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="confirm-popup" title="Вы уверены?" textOnButton="Да" />
+      <PopupWithForm 
+        name="confirm-popup" 
+        title="Вы уверены?" 
+        textOnButton="Да" 
+      />
 
       <ImagePopup />
 
