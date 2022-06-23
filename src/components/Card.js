@@ -1,6 +1,6 @@
-function Card(props) {
-  function handleCardClick() {
-    props.onCardClick(props.card);
+function Card(props) {  
+  function handleClick() {
+    props.onCardClick(props.card);    
   }
 
   return(
@@ -9,7 +9,7 @@ function Card(props) {
       className="element__image" 
       src={props.card.link}
       alt={props.card.name}
-      onClick={handleCardClick}
+      onClick={handleClick}
     />
     <div className="element__caption-container">
       <h2 className="element__caption">{props.card.name}</h2>

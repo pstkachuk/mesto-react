@@ -32,8 +32,8 @@ function App() {
     setSelectedCard(false);
   }
 
-  function onCardClick(card) {
-    setSelectedCard(card)
+  function handleCardClick(card) {
+    setSelectedCard(card);
   }
 
   return (
@@ -44,7 +44,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
-        onCardClick={onCardClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
       <PopupWithForm 
