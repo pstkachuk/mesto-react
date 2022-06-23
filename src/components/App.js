@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
@@ -8,10 +8,10 @@ import ImagePopup from './ImagePopup';
 
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -38,6 +38,7 @@ function App() {
 
   return (
     <div className="page">
+      (
       <Header />
       <Main 
         onEditProfile={handleEditProfileClick}
@@ -134,6 +135,7 @@ function App() {
         card={selectedCard}
         onClose={closeAllPopups}
       />
+      )
     </div>
   );
 }

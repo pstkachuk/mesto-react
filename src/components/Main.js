@@ -1,29 +1,20 @@
-import React from 'react';
+import { useEffect, useState} from 'react';
 import api from '../utils/Api';
 import Card from './Card';
 
 function Main(props) {
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
-  const [cards, setCards] = React.useState([]);
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
   
-  React.useEffect(() => {     // запрос карточек
-    api.getCards()
-    .then((data) => {
-      setCards(data);
-    })
-   .catch((err) => {
-      console.log(err);
-    })
-  }, [])
-
-  React.useEffect(() => {     //запрос пользовательских данных
-    api.getUserInfo()
-    .then((data) => { 
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar)
+  useEffect(() => {   //запрос карточек и данных пользователя
+    api.getAllData()
+    .then(([userData, cards]) => {
+      setCards(cards);
+      setUserName(userData.name);
+      setUserDescription(userData.about);
+      setUserAvatar(userData.avatar)
     })
     .catch((err) => {
       console.log(err);
@@ -62,12 +53,13 @@ function Main(props) {
       </section>
 
       <section className="elements">    {/* отрисовка полученных карточек */}
-       {cards.map((cardItem) => 
+       {cards.map((cardItem) => (
         <Card 
           key={cardItem._id} 
           card={cardItem}
           onCardClick={props.onCardClick}
-        />
+        /> 
+        )
        )}
       </section>
 

@@ -17,8 +17,8 @@ function Card(props) {
         <button
           className="element__like-button"
           type="button"
-          aria-label="поставить лайк"
-        ></button>
+          aria-label="поставить лайк">        
+        </button>
         <div className="element__likes-counter">{props.card.likes.length}</div>
       </div>
     </div>
