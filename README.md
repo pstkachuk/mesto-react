@@ -1,5 +1,7 @@
 # Проект: Место(React)
 
+[Ссылка на страницу](https://pstkachuk.github.io/mesto-react/ "Проект Место")
+
 
 ## *Описание*
 ---
