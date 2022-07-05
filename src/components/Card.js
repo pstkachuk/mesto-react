@@ -35,7 +35,7 @@ function Card(props) {
           aria-label="поставить лайк"
           onClick={handleLikeClick}>        
         </button>
-        <div className="element__likes-counter">{props.card.likes.length}</div>
+        <div className="element__likes-counter">{props.card.likes.length === 0 ? '' : props.card.likes.length}</div>
       </div>
     </div>
     <div 
