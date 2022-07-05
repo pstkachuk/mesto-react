@@ -18,6 +18,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);  //стейт индикатора загрузки запросов
 
   useEffect(() => {   //запрос данных пользователя
     api.getUserInfo()
@@ -98,36 +99,48 @@ function App() {
   }
 
   function handleUpdateUser(userData) {
+    setIsLoading(true);
     api.setUserInfo(userData.name, userData.about)
     .then((userDataUpdate) => {
       setCurrentUser(userDataUpdate);
-      closeAllPopups();
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      setIsLoading(false);
+      closeAllPopups(); 
+    });
   }
 
   function handleUpdateAvatar(userData) {   //запрос на обновление аватара
+    setIsLoading(true);
     api.setAvatar(userData.avatar)
     .then((userDataUpdate) => {
-      setCurrentUser(userDataUpdate);
-      closeAllPopups();
+      setCurrentUser(userDataUpdate);      
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      setIsLoading(false);
+      closeAllPopups(); 
+    });
   }
 
   function handleAddPlaceSubmit(cardData) {
+    setIsLoading(true);
     api.addNewCard(cardData.name, cardData.link)
     .then((newCard) => {
       setCards([newCard, ...cards])
-      closeAllPopups();
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      setIsLoading(false);
+      closeAllPopups(); 
+    });
   }
 
   return (
@@ -152,18 +165,21 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups} 
           onUpdateUser={handleUpdateUser}
+          isLoading={isLoading}
         />
 
         <EditAvatarPopup 
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
         />        
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
+          isLoading={isLoading}
          />        
 
         <PopupWithForm 
