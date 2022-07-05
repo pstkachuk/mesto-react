@@ -9,6 +9,7 @@ import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -16,6 +17,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {   //запрос данных пользователя
     api.getUserInfo()
@@ -25,7 +27,52 @@ function App() {
     .catch((err) => {
       console.log(err);
     })
-  }, [])  
+  }, [])
+
+  useEffect(() => {   //запрос карточек
+    api.getCards()
+    .then((cards) => {
+      setCards(cards);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }, [])
+
+  function handleSetCardsState(card) {
+    setCards((state) => state.map((cardItem) => cardItem._id === card._id ? card : cardItem));
+  }  
+
+  function handleCardLike(card) {     //поставить/убрать лайк
+    const isLiked = card.likes.some(item => item._id === currentUser._id);
+    if (isLiked) {
+      api.deleteLike(card._id)
+      .then((newCard) => {
+        handleSetCardsState(newCard);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } else {
+      api.like(card._id)
+      .then((newCard) => {
+        handleSetCardsState(newCard);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  } 
+
+  function handleCardDelete(card) {   //удалить карточку
+    api.deleteCard(card._id)
+    .then(() => {
+      setCards(cards.filter((item) => item !== card))
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -72,6 +119,17 @@ function App() {
     })
   }
 
+  function handleAddPlaceSubmit(cardData) {
+    api.addNewCard(cardData.name, cardData.link)
+    .then((newCard) => {
+      setCards([newCard, ...cards])
+      closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -83,6 +141,9 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
 
         <Footer />
@@ -99,34 +160,11 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
         />        
 
-        <PopupWithForm 
-          name="new-card" 
-          title="Новое место" 
-          textOnButton="Создать" 
-          isOpen={isAddPlacePopupOpen} 
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-          >
-          <input
-            className="popup__input"
-            type="text"
-            name="card-name"
-            id="card-name"
-            required
-            placeholder="Название"
-            minLength="2"
-            maxLength="30"
-          />
-          <span className="popup__input-error card-name-error"></span>
-          <input
-            className="popup__input"
-            type="url"
-            name="link"
-            id="link"
-            required
-            placeholder="Ссылка на картинку"
-          />
-          <span className="popup__input-error link-error"></span>
-        </PopupWithForm>        
+          onAddPlace={handleAddPlaceSubmit}
+         />        
 
         <PopupWithForm 
           name="confirm-popup" 

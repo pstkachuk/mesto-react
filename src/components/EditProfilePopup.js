@@ -14,13 +14,13 @@ function EditProfilePopup(props) {
   function handleChangeDescription(evt) {
     setDescription(evt.target.value);
   }
+
   function handleSubmit(evt) {
     evt.preventDefault();
     props.onUpdateUser({
       name,
       about: description
     });
-
   }
 
   useEffect(() => {
