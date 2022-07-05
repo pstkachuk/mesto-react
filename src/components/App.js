@@ -8,6 +8,7 @@ import ImagePopup from './ImagePopup';
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -60,23 +61,44 @@ function App() {
     })
   }
 
+  function handleUpdateAvatar(userData) {   //запрос на обновление аватара
+    api.setAvatar(userData.avatar)
+    .then((userDataUpdate) => {
+      setCurrentUser(userDataUpdate);
+      closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         (
         <Header />
+
         <Main 
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
         />
+
         <Footer />
+
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups} 
           onUpdateUser={handleUpdateUser}
         />
+
+        <EditAvatarPopup 
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />        
+
         <PopupWithForm 
           name="new-card" 
           title="Новое место" 
@@ -104,25 +126,7 @@ function App() {
             placeholder="Ссылка на картинку"
           />
           <span className="popup__input-error link-error"></span>
-        </PopupWithForm>
-
-        <PopupWithForm 
-          name="avatar-popup" 
-          title="Обновить аватар" 
-          textOnButton="Сохранить" 
-          isOpen={isEditAvatarPopupOpen} 
-          onClose={closeAllPopups}
-          >
-          <input
-            className="popup__input"
-            type="url"
-            name="avatar-link"
-            id="avatar-link"
-            required
-            placeholder="Ссылка"
-          />
-          <span className="popup__input-error avatar-link-error"></span>
-        </PopupWithForm>
+        </PopupWithForm>        
 
         <PopupWithForm 
           name="confirm-popup" 
