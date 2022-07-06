@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -22,9 +21,7 @@ function App() {
 
   useEffect(() => {   //запрос данных пользователя
     api.getUserInfo()
-    .then((userData) => {
-      setCurrentUser(userData);
-    })
+    .then(setCurrentUser)
     .catch((err) => {
       console.log(err);
     })
@@ -32,9 +29,7 @@ function App() {
 
   useEffect(() => {   //запрос карточек
     api.getCards()
-    .then((cards) => {
-      setCards(cards);
-    })
+    .then(setCards)
     .catch((err) => {
       console.log(err);
     })
@@ -48,17 +43,13 @@ function App() {
     const isLiked = card.likes.some(item => item._id === currentUser._id);
     if (isLiked) {
       api.deleteLike(card._id)
-      .then((newCard) => {
-        handleSetCardsState(newCard);
-      })
+      .then(handleSetCardsState)
       .catch((err) => {
         console.log(err);
       })
     } else {
       api.like(card._id)
-      .then((newCard) => {
-        handleSetCardsState(newCard);
-      })
+      .then(handleSetCardsState)
       .catch((err) => {
         console.log(err);
       })
@@ -68,7 +59,7 @@ function App() {
   function handleCardDelete(card) {   //удалить карточку
     api.deleteCard(card._id)
     .then(() => {
-      setCards(cards.filter((item) => item !== card))
+      setCards(cards.filter((item) => item._id !== card._id))
     })
     .catch((err) => {
       console.log(err);
@@ -101,9 +92,7 @@ function App() {
   function handleUpdateUser(userData) {
     setIsLoading(true);
     api.setUserInfo(userData.name, userData.about)
-    .then((userDataUpdate) => {
-      setCurrentUser(userDataUpdate);
-    })
+    .then(setCurrentUser)
     .catch((err) => {
       console.log(err);
     })
@@ -116,9 +105,7 @@ function App() {
   function handleUpdateAvatar(userData) {   //запрос на обновление аватара
     setIsLoading(true);
     api.setAvatar(userData.avatar)
-    .then((userDataUpdate) => {
-      setCurrentUser(userDataUpdate);      
-    })
+    .then(setCurrentUser)
     .catch((err) => {
       console.log(err);
     })

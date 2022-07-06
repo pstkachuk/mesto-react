@@ -1,18 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup(props) {
+function AddPlacePopup({onAddPlace, isOpen, onClose, isLoading}) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
   function handleSubmit(evt) {
     evt.preventDefault(); 
-    props.onAddPlace({
+    onAddPlace({
       name,
       link
     });
-    setName('');
-    setLink('');
   }
 
   function handleSetName(evt) {
@@ -22,16 +20,21 @@ function AddPlacePopup(props) {
   function handleSetLink(evt) {
     setLink(evt.target.value);
   }
+
+  useEffect(() => {  //очистить инпуты при закрытии несохраненного окна
+    setName('');
+    setLink('');
+  }, [isOpen])
  
   return (
     <PopupWithForm
       name="new-card"
       title="Новое место"
       textOnButton="Создать"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
-      isLoading={props.isLoading}
+      isLoading={isLoading}
     >
       <input
         className="popup__input"
