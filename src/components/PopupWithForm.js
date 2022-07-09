@@ -17,7 +17,7 @@ function PopupWithForm({name, isOpen, title, onClose, onSubmit, children, isLoad
           noValidate>
             {children}         
             <button type="submit" className="popup__submit-button">
-              {isLoading ? 'Сохранение...' : textOnButton}
+              {isLoading ? ((name === 'confirm-popup') ? 'Удаление...' : 'Сохранение...') : textOnButton}
             </button>
         </form>
       </div>
