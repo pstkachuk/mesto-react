@@ -26,14 +26,14 @@ function EditProfilePopup({onUpdateUser, isOpen, onClose, isLoading, onEscapeClo
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [isOpen])
+  }, [currentUser, isOpen])
 
   useEffect(() => {
     isOpen && document.addEventListener('keyup', onEscapeClose);
     return () => {
       document.removeEventListener('keyup', onEscapeClose);
     }
-  }, [isOpen])
+  }, [isOpen, onEscapeClose])
   
 
   return (

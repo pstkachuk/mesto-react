@@ -6,7 +6,7 @@ function ImagePopup({onClose, card, onEscapeClose}) {
     return () => {
       document.removeEventListener('keyup', onEscapeClose);
     }
-  }, [card])
+  }, [card, onEscapeClose])
 
   return (
     <div className={`popup image-popup ${card.name && 'popup_opened'}`}>

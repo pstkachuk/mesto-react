@@ -13,14 +13,14 @@ function EditAvatarPopup({onUpdateAvatar, isOpen, onClose, isLoading, onEscapeCl
 
   useEffect(() => {   //очистить инпут при закрытии окна
     avatarRef.current.value = '';
-  }, [isOpen])
+  }, [isOpen, avatarRef])
 
   useEffect(() => {
     isOpen && document.addEventListener('keyup', onEscapeClose);
     return () => {
       document.removeEventListener('keyup', onEscapeClose);
     }
-  }, [isOpen])
+  }, [isOpen, onEscapeClose])
 
   return (
     <PopupWithForm

@@ -31,7 +31,7 @@ function AddPlacePopup({onAddPlace, isOpen, onClose, isLoading, onEscapeClose}) 
     return () => {
       document.removeEventListener('keyup', onEscapeClose);
     }
-  }, [isOpen])
+  }, [isOpen, onEscapeClose])
  
   return (
     <PopupWithForm

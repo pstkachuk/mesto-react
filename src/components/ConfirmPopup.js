@@ -12,7 +12,7 @@ function ConfirmPopup({isOpen, onClose, isLoading, onDeleteCard, onEscapeClose})
     return () => {
       document.removeEventListener('keyup', onEscapeClose);
     }
-  }, [isOpen])
+  }, [isOpen, onEscapeClose])
 
   return (
     <PopupWithForm
