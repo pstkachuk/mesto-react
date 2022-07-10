@@ -1,4 +1,13 @@
-function ImagePopup({onClose, card}) {
+import { useEffect } from 'react';
+
+function ImagePopup({onClose, card, onEscapeClose}) {
+  useEffect(() => {
+    card && document.addEventListener('keyup', onEscapeClose);
+    return () => {
+      document.removeEventListener('keyup', onEscapeClose);
+    }
+  }, [card])
+
   return (
     <div className={`popup image-popup ${card.name && 'popup_opened'}`}>
       <div className="image-popup__container">

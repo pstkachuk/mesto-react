@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup({onAddPlace, isOpen, onClose, isLoading}) {
+function AddPlacePopup({onAddPlace, isOpen, onClose, isLoading, onEscapeClose}) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
@@ -24,6 +24,13 @@ function AddPlacePopup({onAddPlace, isOpen, onClose, isLoading}) {
   useEffect(() => {  //очистить инпуты при закрытии несохраненного окна
     setName('');
     setLink('');
+  }, [isOpen])
+
+  useEffect(() => {
+    isOpen && document.addEventListener('keyup', onEscapeClose);
+    return () => {
+      document.removeEventListener('keyup', onEscapeClose);
+    }
   }, [isOpen])
  
   return (

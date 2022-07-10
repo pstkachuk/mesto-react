@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function EditAvatarPopup({onUpdateAvatar, isOpen, onClose, isLoading}) {
+function EditAvatarPopup({onUpdateAvatar, isOpen, onClose, isLoading, onEscapeClose}) {
   const avatarRef = useRef();
 
   function handleSubmit(evt) {
@@ -13,6 +13,13 @@ function EditAvatarPopup({onUpdateAvatar, isOpen, onClose, isLoading}) {
 
   useEffect(() => {   //очистить инпут при закрытии окна
     avatarRef.current.value = '';
+  }, [isOpen])
+
+  useEffect(() => {
+    isOpen && document.addEventListener('keyup', onEscapeClose);
+    return () => {
+      document.removeEventListener('keyup', onEscapeClose);
+    }
   }, [isOpen])
 
   return (

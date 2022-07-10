@@ -144,6 +144,10 @@ function App() {
     });
   }
 
+  function handleEscClose(evt) {
+    evt.key === 'Escape' && closeAllPopups();
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -167,6 +171,7 @@ function App() {
           onClose={closeAllPopups} 
           onUpdateUser={handleUpdateUser}
           isLoading={isLoading}
+          onEscapeClose={handleEscClose}
         />
 
         <EditAvatarPopup 
@@ -174,6 +179,7 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           isLoading={isLoading}
+          onEscapeClose={handleEscClose}
         />        
 
         <AddPlacePopup
@@ -181,6 +187,7 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
           isLoading={isLoading}
+          onEscapeClose={handleEscClose}
          />        
 
         <ConfirmPopup 
@@ -188,11 +195,13 @@ function App() {
           onClose={closeAllPopups}
           onDeleteCard={handleCardDelete}
           isLoading={isLoading}
+          onEscapeClose={handleEscClose}
         />
 
         <ImagePopup 
           card={selectedCard}
           onClose={closeAllPopups}
+          onEscapeClose={handleEscClose}
         />
         )
       </div>

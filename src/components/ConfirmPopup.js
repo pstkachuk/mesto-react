@@ -1,10 +1,18 @@
+import { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-function ConfirmPopup({isOpen, onClose, isLoading, onDeleteCard}) {
+function ConfirmPopup({isOpen, onClose, isLoading, onDeleteCard, onEscapeClose}) {
   function handleSubmit(evt) {
     evt.preventDefault();
     onDeleteCard();
   }
+
+  useEffect(() => {
+    isOpen && document.addEventListener('keyup', onEscapeClose);
+    return () => {
+      document.removeEventListener('keyup', onEscapeClose);
+    }
+  }, [isOpen])
 
   return (
     <PopupWithForm

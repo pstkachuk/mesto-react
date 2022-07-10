@@ -2,11 +2,11 @@ import { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
 
-function EditProfilePopup({onUpdateUser, isOpen, onClose, isLoading}) {
+function EditProfilePopup({onUpdateUser, isOpen, onClose, isLoading, onEscapeClose}) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const currentUser = useContext(CurrentUserContext);
-
+  
   function handleChangeName(evt) {
     setName(evt.target.value);
   }
@@ -28,6 +28,14 @@ function EditProfilePopup({onUpdateUser, isOpen, onClose, isLoading}) {
     setDescription(currentUser.about);
   }, [isOpen])
 
+  useEffect(() => {
+    isOpen && document.addEventListener('keyup', onEscapeClose);
+    return () => {
+      document.removeEventListener('keyup', onEscapeClose);
+    }
+  }, [isOpen])
+  
+
   return (
     <PopupWithForm
       name="profile-popup"
@@ -37,6 +45,7 @@ function EditProfilePopup({onUpdateUser, isOpen, onClose, isLoading}) {
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      onEscapeClose={onEscapeClose}
     >
       <input
         className="popup__input"
