@@ -70,7 +70,7 @@ function App() {
     })
     .finally(() => {
       setIsLoading(false);
-      closeAllPopups(); 
+      closeAllPopups();
     });
   }
 
@@ -96,7 +96,8 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsConfirmPopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard({});
+    setDeletionCard({});
   }
 
   function handleCardClick(card) {
