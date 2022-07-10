@@ -33,8 +33,7 @@ function EditProfilePopup({onUpdateUser, isOpen, onClose, isLoading, onEscapeClo
     return () => {
       document.removeEventListener('keyup', onEscapeClose);
     }
-  }, [isOpen, onEscapeClose])
-  
+  }, [isOpen, onEscapeClose])  
 
   return (
     <PopupWithForm

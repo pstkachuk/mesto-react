@@ -8,8 +8,13 @@ function ImagePopup({onClose, card, onEscapeClose}) {
     }
   }, [card, onEscapeClose])
 
+  function handleClickOverlay(evt) {
+    evt.target === evt.currentTarget && onClose();
+  }
+
   return (
-    <div className={`popup image-popup ${card.name && 'popup_opened'}`}>
+    <div className={`popup image-popup ${card.name && 'popup_opened'}`}
+      onClick={handleClickOverlay}>
       <div className="image-popup__container">
         <button
           className="popup__close-button image-popup__close-button"

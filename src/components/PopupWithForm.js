@@ -1,7 +1,11 @@
-function PopupWithForm({name, isOpen, title, onClose, onSubmit, children, isLoading, textOnButton}) {
+function PopupWithForm({name, isOpen, title, onClose, onSubmit, children, isLoading, textOnButton}) {  
+  function handleClickOverlay(evt) {
+    evt.target === evt.currentTarget && onClose();
+  }
 
   return(
-    <div className={`popup ${name} ${isOpen && 'popup_opened'}`}>
+    <div className={`popup ${name} ${isOpen && 'popup_opened'}`}
+      onClick={handleClickOverlay}>
       <div className="popup__container">
         <h2 className="popup__form-title">{title}</h2>
         <button
